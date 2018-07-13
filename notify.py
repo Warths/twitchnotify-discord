@@ -51,9 +51,12 @@ class NotifyPlugin(Plugin):
 
     @staticmethod
     def is_online(user_login):
-        request = requests.get('https://api.twitch.tv/helix/streams?user_login=%s' % user_login,
-                               headers={'Client-ID': 'YOURCLIENTIDHERE',
-                                        'Authorization': 'Bearer YOURTOKENHERE'})
+        try:
+            request = requests.get('https://api.twitch.tv/helix/streams?user_login=%s' % user_login,
+                                   headers={'Client-ID': 'YOURCLIENTIDHERE',
+                                            'Authorization': 'Bearer YOURTOKENHERE'})
+        except:
+            return None
         if request.status_code == 200 and str(request.json()['data']) != '[]':
             return request.json()
         else:
