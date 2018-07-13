@@ -69,13 +69,13 @@ class NotifyPlugin(Plugin):
     @staticmethod
     def get_more_info(stream):
         request = requests.get('https://api.twitch.tv/helix/games?id=%s' % stream['game_id'],
-                               headers={'Client-ID': 'qab2o1rz2l780rdbn7myuk5iyg4wra'})
+                               headers={'Client-ID': 'YOURCLIENTIDHERE'})
         if request.status_code == 200 and str(request.json()['data']) != '[]':
             stream['game'] = request.json()['data'][0]['name'].capitalize()
         else:
             stream['game'] = 'Erreur'
         request = requests.get('https://api.twitch.tv/helix/users?login=%s' % stream['channel'],
-                               headers={'Client-ID': 'qab2o1rz2l780rdbn7myuk5iyg4wra'})
+                               headers={'Client-ID': 'YOURCLIENTIDHERE'})
         if request.status_code == 200 and str(request.json()['data']) != '[]':
             stream['logo'] = request.json()['data'][0]['profile_image_url']
             stream['display_name'] = request.json()['data'][0]['display_name']
